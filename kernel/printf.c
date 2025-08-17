@@ -159,6 +159,21 @@ printf(char *fmt, ...)
   return 0;
 }
 
+void 
+backtrace(void)
+{
+  uint64 fp = r_fp();   // current frame pointer
+  printf("backtrace:\n");
+
+  // Traverse stack frames
+  while (fp != 0 && PGROUNDDOWN(fp) == PGROUNDDOWN(r_fp())) {
+    uint64 ra = *(uint64*)(fp - 8);   // return address
+    printf("  %lx\n", ra);
+    fp = *(uint64*)(fp - 16);         // previous frame pointer
+  }
+}
+
+
 void
 panic(char *s)
 {
@@ -166,6 +181,7 @@ panic(char *s)
   printf("panic: ");
   printf("%s\n", s);
   panicked = 1; // freeze uart output from other CPUs
+  backtrace();
   for(;;)
     ;
 }
