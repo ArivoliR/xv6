@@ -165,10 +165,9 @@ backtrace(void)
   uint64 fp = r_fp();   // current frame pointer
   printf("backtrace:\n");
 
-  // Traverse stack frames
   while (fp != 0 && PGROUNDDOWN(fp) == PGROUNDDOWN(r_fp())) {
     uint64 ra = *(uint64*)(fp - 8);   // return address
-    printf("  %lx\n", ra);
+    printf("%lx\n", ra);
     fp = *(uint64*)(fp - 16);         // previous frame pointer
   }
 }
