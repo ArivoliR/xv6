@@ -130,7 +130,7 @@ static uint64 (*syscalls[])(void) = {
 [SYS_trace]   sys_trace,
 };
 
-static char *syscallnames[] = {
+static const char *syscallnames[] = {
   [SYS_fork]    "fork",
   [SYS_exit]    "exit",
   [SYS_wait]    "wait",
@@ -152,7 +152,7 @@ static char *syscallnames[] = {
   [SYS_link]    "link",
   [SYS_mkdir]   "mkdir",
   [SYS_close]   "close",
-  [SYS_trace]   "trace",   
+  [SYS_trace]   "trace",
 };
 
 void
